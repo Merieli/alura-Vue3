@@ -1,6 +1,7 @@
 <template>
     <div class="is-flex is-align-items-center is-justify-content-space-between">
         <FormCronometro :tempoEmSegundos="tempoEmSegundos" :disabled="cronometroRodando" />
+        <TempButton :typeButton="'play'" />
         <button class="button" @click="iniciar">
             <span class="icon">
                 <i class="fas fa-play"></i>
@@ -19,12 +20,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import FormCronometro from './FormCronometro.vue'
+import TempButton from './TempButton.vue'
 
 export default defineComponent ({
     name: 'FormTemporizador',
     emits: ['aoTemporizadorFinalizado'], //lista de eventos que o componente é capaz de emitir
     components: {
-        FormCronometro
+        FormCronometro,
+        TempButton
     },
     data() {
         return {

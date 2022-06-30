@@ -20,6 +20,7 @@ import FormTemporizador from './FormTemporizador.vue'
 
 export default defineComponent ({
     name: 'PartFormulario',
+    emits: ['aoSalvarTarefa'], //emite os eventos
     components: {
         FormTemporizador
     },
@@ -30,8 +31,10 @@ export default defineComponent ({
     },
     methods: {
         finalizarTarefa (tempoDecorrido: number) : void {
-            console.log('tempo da tarefa', tempoDecorrido)
-            console.log('Descricao da tarefa', this.descricao)
+            this.$emit('aoSalvarTarefa', { //quando uma tarefa for salva o formulario emite um evento que o APP ouve e adiciona a lista de taregas
+                duracaoEmSegundos: tempoDecorrido,
+                descricao: this.descricao
+            })
             this.descricao = ''
         }
     }

@@ -11,9 +11,12 @@ npm run serve
 ```
 
 ### Compiles and minifies for production
+Ao subir um servidor com o código da pasta "dist" gerado pelo build é obtido o projeto em estado de produção, todo minificado e otimizado.
 ```
 npm run build
 ```
+
+*Com o http-server instalado na máquina é possível subir a pasta dist do projeto para um teste em um servidor web de porta local apenas com o comando "http-server"*
 
 ### Lints and fixes files
 ```

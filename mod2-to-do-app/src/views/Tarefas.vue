@@ -19,7 +19,7 @@ import ITarefa from '../interfaces/ITarefa'
 import PartBox from '../components/PartBox.vue'
 
 export default defineComponent({
-    name: 'App',
+    name: 'ViewTarefas',
     components: {
         PartFormulario,
         PartTarefa,

@@ -3,7 +3,7 @@
 
 import IProjeto from "@/interfaces/IProjeto"; //o @ no caminho é um alias para a pasta src
 import { InjectionKey } from "vue";
-import { createStore, Store } from "vuex";
+import { createStore, Store, useStore as vuexUseStore } from "vuex"; //'useStore as vuexUseStore' define que nesse arquivo o 'useStore' recebe o apelido 'vuexUseStore' que sera usado para designá-lo
 
 interface Estado {
     projetos: IProjeto[]
@@ -14,19 +14,20 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 
 export const store = createStore<Estado>({
     state: {
-        projetos: [
-            {
+        projetos: []
+    },
+    mutations: { //define as mutações da aplicação, é um objeto que recebe funções que tem o poder de adicionar coisas ao estado. Por convenção o nome das mutações devem ser em caixa alta
+        'ADICIONA_PROJETO'(state, nomeDoProjeto: string){
+            const projeto = {
                 id: new Date().toISOString(),
-                nome: 'TypeScript'
-            },
-            {
-                id: new Date().toISOString(),
-                nome: 'Vue'
-            },
-            {
-                id: new Date().toISOString(),
-                nome: 'Vuex'
-            },
-        ]
+                nome: nomeDoProjeto 
+            } as IProjeto
+            state.projetos.push(projeto)
+        }
     }
 })
+
+//função personalizada para simplificar a criação da chave Store
+export function useStore(): Store<Estado> {
+    return vuexUseStore(key)
+}

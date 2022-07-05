@@ -32,25 +32,28 @@
 </template>
 
 <script lang="ts">
+import { computed } from "@vue/runtime-core";
 import { defineComponent } from "vue";
-import IProjeto from '../interfaces/IProjeto'
+import { useStore } from "../store";
 
 export default defineComponent({
     name: 'ViewProjetos',
     data() {
         return {
-            nomeDoProjeto: '',
-            projetos: [] as IProjeto[]
+            nomeDoProjeto: ''
         }
     },
     methods: {
         salvar (){
-            const projeto: IProjeto = {
-                nome: this.nomeDoProjeto,
-                id: new Date().toISOString()
-            }
-            this.projetos.push(projeto)
+            this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
             this.nomeDoProjeto = ''
+        }// Para alterar o estado, uma mutation deve ser implementada na store e chamada pelo componente.
+    },
+    setup () {
+        const store = useStore() // permite o acesso a store dentro do componente
+        return {
+            store,
+            projetos: computed(() => store.state.projetos)
         }
     }
 })

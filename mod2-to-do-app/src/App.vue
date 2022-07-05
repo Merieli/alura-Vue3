@@ -1,3 +1,4 @@
+<!--Prop diling: problema conhecido que ocorre com a necessidade de passar um propriedade de um componente para o outro simplemente porque o filho ou neto precisa, e a propriedade não é usada, com o passar do tempo isso pode se tornar um problema -->
 <template>
     <main class="colunms is-gapless is-multiline" :class="{ 'modo-escuro':modoEscuroAtivo }"> 
     <!--Dentro da :class vai código javascript dentro de um objeto "{ }" sendo que primeiro vem entre aspas a classe que desejo adicionar  -->

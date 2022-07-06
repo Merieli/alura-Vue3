@@ -1,30 +1,30 @@
 <template>
     <section class="projetos">
         <h1 class="title">Projetos</h1>
-        <form @submit.prevent="salvar" > <!--@submit.prevent - ouve o evento de submit ja prevenindo o comportamento padrão de recarregar-->
-            <div class="field">
-                <label for="nomeDoProjeto" class="label">
-                    Nome do Projeto
-                </label>
-                <input type="text" class="input" v-model="nomeDoProjeto" id="nomeDoProjeto">
-            </div>
-            <div class="field">
-                <button class="button" type="submit">
-                    Salvar
-                </button>
-            </div>
-        </form>
+        <router-link to="/projetos/novo" class="button">
+            <span class="icon is-small">
+                <i class="fas fa-plus"></i>
+            </span>
+        </router-link>
         <table class="table is-fullwidth">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="projeto in projetos" :key="projeto.id">
                     <td>{{ projeto.id }}</td>
                     <td>{{ projeto.nome }}</td>
+                    <td>
+                        <router-link :to="`/projetos/${projeto.id}`" class="button">
+                            <span class="icon is-small">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </router-link>                    
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -38,21 +38,9 @@ import { useStore } from "../store";
 
 export default defineComponent({
     name: 'ViewProjetos',
-    data() {
-        return {
-            nomeDoProjeto: ''
-        }
-    },
-    methods: {
-        salvar (){
-            this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
-            this.nomeDoProjeto = ''
-        }// Para alterar o estado, uma mutation deve ser implementada na store e chamada pelo componente.
-    },
     setup () {
         const store = useStore() // permite o acesso a store dentro do componente
         return {
-            store,
             projetos: computed(() => store.state.projetos)
         }
     }

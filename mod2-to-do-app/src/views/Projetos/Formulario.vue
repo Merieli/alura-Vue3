@@ -1,5 +1,5 @@
 <template>
-    <section class="projetos">
+    <section>
         <h1 class="title">Projetos</h1>
         <form @submit.prevent="salvar" > <!--@submit.prevent - ouve o evento de submit ja prevenindo o comportamento padrão de recarregar-->
             <div class="field">
@@ -23,14 +23,32 @@ import { useStore } from "../../store";
 
 export default defineComponent({
     name: 'ViewFormulario',
+    props: {
+        id: {
+            type: String
+        } //type define o tipo da propriedade
+    },
+    mounted () { // quando o componente for montado
+        if(this.id) {
+            const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
+            this.nomeDoProjeto = projeto?.nome || '' //a "?" define que a propriedade pode existir ou não, e não gera erro no TS
+        }
+    },
     data() {
         return {
             nomeDoProjeto: ''
         }
     },
     methods: {
-        salvar (){
-            this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
+        salvar (){  
+            if(this.id){
+                this.store.commit('ALTERA_PROJETO', {
+                    id: this.id,
+                    nome: this.nomeDoProjeto
+                })
+            } else {
+                this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
+            }
             this.nomeDoProjeto = '';
             this.$router.push('/projetos')
         }// Para alterar o estado, uma mutation deve ser implementada na store e chamada pelo componente.
@@ -45,7 +63,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.projetos{
-    padding: 1.25rem;
-}
 </style>

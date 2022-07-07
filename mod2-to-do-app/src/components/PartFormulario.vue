@@ -44,16 +44,17 @@ export default defineComponent ({
     data () {
         return {
             descricao: '',
-            idProjeto: ''
+            idProjeto: '',
         }
     },
     methods: {
-        salvarTarefa (tempoDecorrido: number) : void {
+        salvarTarefa (tempoDecorrido: number) {
             this.$emit('aoSalvarTarefa', { //quando uma tarefa for salva o formulario emite um evento que o APP ouve e adiciona a lista de taregas
                 duracaoEmSegundos: tempoDecorrido,
                 descricao: this.descricao,
-                projeto: this.projetos.find(proj => proj.id == this.idProjeto) //o metodo find projeto o projeto de id que é o memo id do projeto selecionado no select para que ao criar a tarefa ela esteja relacionada ao proejto
+                projeto: this.projetos.find(proj => proj.id == this.idProjeto) 
             })
+            //o metodo find projeto o projeto de id que é o memo id do projeto selecionado no select para que ao criar a tarefa ela esteja relacionada ao proejto
             this.descricao = ''
         },
         setup (){ //metodo que prepara a montagem do componente

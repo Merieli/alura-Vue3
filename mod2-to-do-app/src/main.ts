@@ -9,10 +9,10 @@ import App from './App.vue'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import roteador from './roteador'
-import { store<key>, key } from '@/store'
+import { store, key } from './store'
 
 //ao usar o store é preciso importá-lo juntamente com a chave
-createApp(App)
-    .use(store)
-    .use(roteador)
-    .mount('#app')
+const app = createApp(App, {})
+app.use(store, key);
+app.use(roteador);
+app.mount('#app');

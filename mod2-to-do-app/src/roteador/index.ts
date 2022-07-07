@@ -13,19 +13,26 @@ const rotas: RouteRecordRaw[] = [
     }, 
     {
         path: '/projetos',
-        name: 'Projetos',
-        component: ViewProjetos
-    },
-    {
-        path: '/projetos/novo',
-        name: 'Novo Projeto',
-        component: ViewFormulario
-    },
-    {
-        path: '/projetos/:id',
-        name: 'Editar Projeto',
-        component: ViewFormulario
-    },
+        component: ViewProjetos,
+        children: [ //children define que esta rota terá rotas filhas, sendo assim toda rota definida nesse array herda o path  inicial "/projetos"
+            {
+                path: '',
+                name: 'Projetos',
+                component: ViewProjetos
+            },
+            {
+                path: '/novo',
+                name: 'Novo Projeto',
+                component: ViewFormulario
+            },
+            {
+                path: '/:id',
+                name: 'Editar Projeto',
+                component: ViewFormulario,
+                props: true //props: true- tem como finalidade dizer ao roteador que o segmento ":id" pega o nome definido e injeja na aplicação como se fosse uma propriedade do componente
+            },
+        ]
+    }
 ]; 
 
 const roteador = createRouter({

@@ -39,17 +39,19 @@
 import { computed } from "@vue/runtime-core";
 import { defineComponent } from "vue";
 import { useStore } from "../../store";
-import { EXCLUIR_PROJETO } from "../../store/tipo-mutacoes";
+import { OBTER_PROJETOS, REMOVER_PROJETO } from "../../store/tipo-acoes";
 
 export default defineComponent({
     name: 'ViewLista',
     methods: {
         excluir (id: string){
-            this.store.commit(EXCLUIR_PROJETO, id)
+            this.store.dispatch(REMOVER_PROJETO, id) //commit é usado para invocar uma mutation 
         }
     },
     setup () {
         const store = useStore() // permite o acesso a store dentro do componente
+        store.dispatch(OBTER_PROJETOS)//dispatch é usado para invocar uma action 
+
         return {
             projetos: computed(() => store.state.projetos),
             store

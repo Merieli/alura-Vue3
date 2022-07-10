@@ -20,7 +20,7 @@
 import { defineComponent } from "vue";
 import { TypeNotification } from "../../interfaces/INotification";
 import { useStore } from "../../store";
-import { ALTERA_PROJETO, ADICIONA_PROJETO } from "../../store/tipo-mutacoes";
+import { ALTERAR_PROJETO, CADASTRAR_PROJETO } from '../../store/tipo-acoes';
 
 //import { notificacaoMixin } from '../../mixins/notificar'
 
@@ -47,18 +47,21 @@ export default defineComponent({
     //mixins: [notificacaoMixin], //é necessário configurar o mixin para que seu metodo possa ser chamado no código
     methods: {
         salvar (){  
-            if(this.id){
-                this.store.commit(ALTERA_PROJETO, {
+            if(this.id){ //se tiver o id fara o update do projeto
+                this.store.dispatch(ALTERAR_PROJETO, {
                     id: this.id,
                     nome: this.nomeDoProjeto
-                })
-            } else {
-                this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
+                }).then(() => this.lidarComSucesso());
+            } else { // se não tiver id é um projeto novo entao o projeto é cadastrado
+                this.store.dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
+                    .then(() => this.lidarComSucesso());
             }
-            this.nomeDoProjeto = '';
-            this.notificar(TypeNotification.SUCESSO, 'Novo Projeto foi salvo', 'Prontinho ;) seu projeto já está disponível.')
-            this.$router.push('/projetos')
         },// Para alterar o estado, uma mutation deve ser implementada na store e chamada pelo componente.
+        lidarComSucesso () {
+            this.nomeDoProjeto = ''; //limpa o nome do projeto atual
+            this.notificar(TypeNotification.SUCESSO, 'Novo Projeto foi salvo', 'Prontinho ;) seu projeto já está disponível.')
+            this.$router.push('/projetos') //redireciona para pagina de projetos
+        }
     },
     setup () {
         const store = useStore() // permite o acesso a store dentro do componente

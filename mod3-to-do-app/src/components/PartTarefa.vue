@@ -1,6 +1,6 @@
 <template>
     <PartBox>
-        <div class="columns">
+        <div class="columns clicavel" @click="tarefaClicada">
             <div class="column is-4">
                 {{ tarefa.descricao || 'Tarefa sem descrição' }} <!--Se a descricao nao existir será colocado o texto entre aspas -->
             </div>
@@ -22,6 +22,7 @@ import PartBox from './PartBox.vue';
 
 export default defineComponent({
     name: 'PartTarefa',
+    emits: ['aoTarefaClicada'],
     components: {
         FormCronometro,
         PartBox
@@ -31,7 +32,16 @@ export default defineComponent({
             type: Object as PropType<ITarefa>,
             required: true //propriedade obrigatória
         }
+    },
+    methods: {
+        tarefaClicada (): void {
+            this.$emit('aoTarefaClicada', this.tarefa)
+        }
     }
-
 })
 </script>
+<style scoped>
+.clicavel{
+    cursor: pointer;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
     <div class="projetos">
         <h1 class="title">Projetos</h1>
-        <router-view to=""></router-view>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent ({
-    name: 'Projetos'
+    name: 'ViewProjetos'
 })
 </script>
 

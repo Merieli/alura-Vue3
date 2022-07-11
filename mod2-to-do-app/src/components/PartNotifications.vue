@@ -2,7 +2,7 @@
     <div class="notifications">
         <!-- :class="contexto[notificacao.tipo] - Para cada tipo é acessado o contexto que retorna a classe necessária-->
         <article class="message" 
-            :class="contexto[notificacao.tipo]" 
+            :class="contexto[notification.tipo]" 
             v-for="notification in notifications"
             :key="notification.id"
         >

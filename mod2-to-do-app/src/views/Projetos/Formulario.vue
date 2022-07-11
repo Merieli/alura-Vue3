@@ -47,17 +47,17 @@ export default defineComponent({
     //mixins: [notificacaoMixin], //é necessário configurar o mixin para que seu metodo possa ser chamado no código
     methods: {
         salvar (){  
-            if(this.id){
+             if(this.id){ //se tiver o id fara o update do projeto
                 this.store.commit(ALTERA_PROJETO, {
                     id: this.id,
                     nome: this.nomeDoProjeto
                 })
-            } else {
+            } else { // se não tiver id é um projeto novo entao o projeto é cadastrado
                 this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto)
             }
-            this.nomeDoProjeto = '';
+            this.nomeDoProjeto = ''; //limpa o nome do projeto atual
             this.notificar(TypeNotification.SUCESSO, 'Novo Projeto foi salvo', 'Prontinho ;) seu projeto já está disponível.')
-            this.$router.push('/projetos')
+            this.$router.push('/projetos') //redireciona para pagina de projetos
         },// Para alterar o estado, uma mutation deve ser implementada na store e chamada pelo componente.
     },
     setup () {

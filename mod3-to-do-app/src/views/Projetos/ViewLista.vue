@@ -53,7 +53,7 @@ export default defineComponent({
         store.dispatch(OBTER_PROJETOS)//dispatch é usado para invocar uma action 
 
         return {
-            projetos: computed(() => store.state.projetos),
+            projetos: computed(() => store.state.projeto.projetos),
             store
         }
     }

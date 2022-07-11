@@ -65,7 +65,7 @@ export default defineComponent ({
     setup () { //metodo que prepara a montagem do componente
         const store = useStore(key) //o gancho useStore permite o uso da Store
         return {
-            projetos: computed(() => store.state.projetos) //retorna a lista de projetos que vem do 'store.state.projetos', mas por ser uma lista dinamica que pode ter projetos adicionados é necessário encapsular dentro da função computed que representa as propriedades computadas
+            projetos: computed(() => store.state.projeto.projetos) //retorna a lista de projetos que vem do 'store.state.projetos', mas por ser uma lista dinamica que pode ter projetos adicionados é necessário encapsular dentro da função computed que representa as propriedades computadas
         }
     }
 })

@@ -35,7 +35,7 @@ export default defineComponent({
     },
     mounted () { // quando o componente for montado
         if(this.id) {
-            const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
+            const projeto = this.store.state.projeto.projetos.find(proj => proj.id == this.id)
             this.nomeDoProjeto = projeto?.nome || '' //a "?" define que a propriedade pode existir ou não, e não gera erro no TS
         }
     },

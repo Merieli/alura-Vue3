@@ -44,6 +44,7 @@ export default defineComponent ({
     components: {
         FormTemporizador
     },
+    //Utilizando o método setup, conseguimos escrever tudo o que um componente precisa. Seja o seu estado, reagir ao ciclo de vida ou mesmo propriedades computadas.
     // { emit } - extrai o emit do contexto do vue
     setup (props, { emit }) { //a primeira variavel recebida são as props e a segunda é o contexto que permite acesso a várias coisas disponiveis no setup (como o "emit" por exemplo)
 

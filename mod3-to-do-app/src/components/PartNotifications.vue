@@ -25,7 +25,7 @@ export default defineComponent ({
         return {
             //define o contexto da classe de acordo com o tipo de notificacao usada
             contexto: {
-                [TypeNotification.SUCESSO]: 'is-sucess',
+                [TypeNotification.SUCESSO]: 'is-success',
                 [TypeNotification.ATENCAO]: 'is-warning',
                 [TypeNotification.FALHA]: 'is-danger',
             }

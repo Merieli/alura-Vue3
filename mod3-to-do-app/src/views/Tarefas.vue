@@ -14,27 +14,25 @@
                 </p>
             </div>
             <PartTarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" @aoTarefaClicada="selecionarTarefa" /><!--No v-for primeiro é o item da lista, e o segundo é o índice do item na lista. -->
-            <div class="modal" :class="{ 'is-active': tarefaSelecionada }" v-if="tarefaSelecionada"> <!-- Componente de modal só sera renderizado se uma tarefa for selecionada -->
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head">
+            <PartModal :mostrar="tarefaSelecionada != null">
+                <!-- Slots customizados que podem ser extraidos ou incluidos, dentro de um componente usando a tag template-->
+                <template v-slot:cabecalho>
                     <p class="modal-card-title">Editando uma tarefa</p>
                     <button class="delete" aria-label="close" @click="fecharModal"></button>
-                    </header>
-                    <section class="modal-card-body">
-                        <div class="field">
-                            <label for="descricaoDaTarefa" class="label">
-                                Descrição
-                            </label>
-                            <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
-                        </div>
-                    </section>
-                    <footer class="modal-card-foot">
+                </template>
+                <template v-slot:corpo>
+                    <div class="field">
+                        <label for="descricaoDaTarefa" class="label">
+                            Descrição
+                        </label>
+                        <input type="text" class="input" v-model="tarefaSelecionada.descricao" id="descricaoDaTarefa">
+                    </div>
+                </template>
+                <template v-slot:rodape>
                     <button class="button is-success" @click="alterarTarefa">Salvar Alteração</button>
                     <button class="button" @click="fecharModal">Cancelar</button>
-                    </footer>
-                </div>
-            </div>     
+                </template>
+            </PartModal>            
         </div>
     </div>
 </template>
@@ -44,6 +42,7 @@ import { computed, defineComponent, ref, watchEffect } from 'vue';
 import PartFormulario from '../components/PartFormulario.vue'
 import PartTarefa from '../components/PartTarefa.vue'
 import PartBox from '../components/PartBox.vue'
+import PartModal from '../components/PartModal.vue'
 import { useStore } from '../store';
 import { ALTERAR_TAREFA, CADASTRAR_TAREFA, OBTER_PROJETOS, OBTER_TAREFAS } from '../store/tipo-acoes';
 import ITarefa from '../interfaces/ITarefa';
@@ -53,7 +52,8 @@ export default defineComponent({
     components: {
         PartFormulario,
         PartTarefa,
-        PartBox
+        PartBox,
+        PartModal
     },
     data () {
         return {
